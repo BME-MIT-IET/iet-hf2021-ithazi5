@@ -1,6 +1,0 @@
-{
-  "@context": {"ex": "http://example.org/"},
-  "@requireAll": true,
-  "@type": "ex:Type",
-  "ex:p": {}
-}

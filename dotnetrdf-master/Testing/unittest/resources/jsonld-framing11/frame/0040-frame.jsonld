@@ -1,6 +1,0 @@
-{
-  "@context": {"ex": "http://example.org/"},
-  "ex:p": {"@value": {}, "@type": []},
-  "ex:q": {"@value": {}, "@type": "ex:q"},
-  "ex:r": {"@value": {}, "@language": "r"}
-}

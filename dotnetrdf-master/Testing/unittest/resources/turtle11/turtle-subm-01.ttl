@@ -1,3 +1,0 @@
-@base <http://www.w3.org/2013/TurtleTests/turtle-subm-01.ttl> .
-@prefix : <#> .
-[] :x :y .

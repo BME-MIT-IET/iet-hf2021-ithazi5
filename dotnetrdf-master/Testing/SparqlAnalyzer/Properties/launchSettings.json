@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "SparqlAnalyzer": {
-      "commandName": "Project",
-      "commandLineArgs": "-f d:\\projects\\query5.txt"
-    }
-  }
-}

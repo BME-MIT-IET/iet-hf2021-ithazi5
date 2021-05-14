@@ -1,7 +1,0 @@
-
-{
-  "@context": {
-    "@vocab": "https://schema.org/"
-  },
-  "follows": { "@id": "https://schema.org/JANE" }
-}
