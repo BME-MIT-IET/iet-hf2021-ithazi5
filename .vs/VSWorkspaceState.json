@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\packages"
+    "\\packages",
+    "\\packages\\dotNetRDF.2.7.0",
+    "\\packages\\dotNetRDF.2.7.0\\lib",
+    "\\packages\\dotNetRDF.2.7.0\\lib\\net40"
   ],
-  "SelectedNode": "\\packages\\VDS.Common.1.10.0",
+  "SelectedNode": "\\packages\\dotNetRDF.2.7.0\\lib\\net40",
   "PreviewInSolutionExplorer": false
 }
