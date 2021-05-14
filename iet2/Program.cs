@@ -13,6 +13,7 @@ namespace iet2
     {
         static void Main(string[] args)
         {
+
             IGraph g = new Graph();
 
             IUriNode dotNetRDF = g.CreateUriNode(UriFactory.Create("http://www.dotnetrdf.org"));
