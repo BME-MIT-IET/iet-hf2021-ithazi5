@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using VDS.RDF;
 using VDS.RDF.Parsing;
+using VDS.RDF.Query;
 using VDS.RDF.Writing;
 
 namespace iet2
@@ -40,6 +41,19 @@ namespace iet2
                 Console.WriteLine("RDF Error");
                 Console.WriteLine(rdfEx.Message);
             }
+
+            IBlankNode b = g.GetBlankNode("nodeID");
+            if (b != null)
+            {
+                Console.WriteLine("Blank Node with ID " + b.InternalID + " exists in the Graph");
+            }
+            else
+            {
+                Console.WriteLine("No Blank Node with the given ID existed in the Graph");
+            }
+
+
+
             int i = 0;
             foreach (Triple t in g.Triples)
             {
@@ -48,7 +62,8 @@ namespace iet2
                 if (i == 100)
                     break;
             }
-            Console.ReadLine();
+
+            Console.ReadKey();
         }
     }
 }
