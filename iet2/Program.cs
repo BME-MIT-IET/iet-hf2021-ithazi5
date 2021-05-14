@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VDS.RDF;
+using VDS.RDF.Parsing;
 using VDS.RDF.Writing;
 
 namespace iet2
@@ -21,9 +22,31 @@ namespace iet2
             g.Assert(new Triple(dotNetRDF, says, helloWorld));
             g.Assert(new Triple(dotNetRDF, says, bonjourMonde));
 
+            Notation3Parser n3parser = new Notation3Parser();
+            try
+            {
+                //Load using Filename
+                n3parser.Load(g, "szepmuveszeti.n3");
+            }
+            catch (RdfParseException parseEx)
+            {
+                //This indicates a parser error e.g unexpected character, premature end of input, invalid syntax etc.
+                Console.WriteLine("Parser Error");
+                Console.WriteLine(parseEx.Message);
+            }
+            catch (RdfException rdfEx)
+            {
+                //This represents a RDF error e.g. illegal triple for the given syntax, undefined namespace
+                Console.WriteLine("RDF Error");
+                Console.WriteLine(rdfEx.Message);
+            }
+            int i = 0;
             foreach (Triple t in g.Triples)
             {
                 Console.WriteLine(t.ToString());
+                i++;
+                if (i == 100)
+                    break;
             }
             Console.ReadLine();
         }
