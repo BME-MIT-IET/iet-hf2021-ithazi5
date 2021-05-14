@@ -1,0 +1,11 @@
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\bin\Debug\netstandard2.0\RDFSharp.xml
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\bin\Debug\netstandard2.0\RDFSharp.deps.json
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\bin\Debug\netstandard2.0\RDFSharp.dll
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\bin\Debug\netstandard2.0\RDFSharp.pdb
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.csprojAssemblyReference.cache
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.AssemblyInfoInputs.cache
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.AssemblyInfo.cs
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.csproj.CoreCompileInputs.cache
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.sourcelink.json
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.dll
+C:\Users\akosr\Downloads\RDFSharp-master\RDFSharp-master\RDFSharp\obj\Debug\netstandard2.0\RDFSharp.pdb
