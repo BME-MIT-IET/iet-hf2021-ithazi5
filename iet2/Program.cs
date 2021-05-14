@@ -24,6 +24,8 @@ namespace iet2
             g.Assert(new Triple(dotNetRDF, says, helloWorld));
             g.Assert(new Triple(dotNetRDF, says, bonjourMonde));
 
+            
+
             Notation3Parser n3parser = new Notation3Parser();
             try
             {
