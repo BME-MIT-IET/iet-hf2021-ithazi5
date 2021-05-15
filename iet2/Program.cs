@@ -222,6 +222,8 @@ namespace iet2
 
         static void Main(string[] args)
         {
+            ManualTest manualTest = new ManualTest();
+            manualTest.runAllManualTests();
 
             //Console.WriteLine("PerformanceTestCreate1Triple");
             //PerformanceTestWith1Triple();
@@ -242,8 +244,9 @@ namespace iet2
             //PerformanceTestWithDatabase();
           
             //WriteAnRDF();
-            AQuery();
+            //AQuery();
             Console.ReadKey();
+
         }
     }
 }
