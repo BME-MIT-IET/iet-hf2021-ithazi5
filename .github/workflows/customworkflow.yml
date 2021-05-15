@@ -34,5 +34,6 @@ jobs:
       - name: Restore nuget
         run: nuget restore dotnetrdf.sln 
       
+      
       - name: Build the Solution
         run: msbuild dotnetrdf.sln   
