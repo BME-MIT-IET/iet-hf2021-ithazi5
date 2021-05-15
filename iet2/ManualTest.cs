@@ -7,6 +7,7 @@ using VDS.RDF;
 using VDS.RDF.Parsing;
 using VDS.RDF.Query;
 using VDS.RDF.Query.Datasets;
+using VDS.RDF.Update;
 
 namespace iet2
 {
@@ -55,10 +56,11 @@ namespace iet2
                 return false;
             }
 
-            ISparqlDataset ds = new InMemoryDataset(g);
+            TripleStore ts = new TripleStore();
+            ts.Add(g);
 
             //Get the Query processor
-            LeviathanQueryProcessor processor = new LeviathanQueryProcessor(ds);
+            LeviathanQueryProcessor processor = new LeviathanQueryProcessor(ts);
 
 
             SparqlQuery q = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> SELECT ?actor {?actor a ecrm:E39_Actor}");
@@ -73,14 +75,16 @@ namespace iet2
                     Console.WriteLine(result.ToString());
                 }
             }
-            SparqlQuery delete = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> DELETE {?actor a ecrm:E39_Actor FILTER(?actor = <http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d>)}");
-            var deleteResult = processor.ProcessQuery(delete);
+            Console.WriteLine("Itt vana az elso listazasnak vege.");
+            SparqlUpdateCommandSet delete = new SparqlUpdateParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> DELETE {<http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d> a ecrm:E39_Actor}WHERE{}");
+            var updateProcessor = new LeviathanUpdateProcessor(ts);
+            updateProcessor.ProcessCommandSet(delete);
             var result2 = processor.ProcessQuery(q);
             if (result2 is SparqlResultSet)
             {
                 //Print out the Results
                 //Console.WriteLine("working up to this ");
-                SparqlResultSet rset = (SparqlResultSet)results;
+                SparqlResultSet rset = (SparqlResultSet)result2;
                 foreach (SparqlResult result in rset.Results)
                 {
                     Console.WriteLine(result.ToString());
