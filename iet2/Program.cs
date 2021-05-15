@@ -76,22 +76,7 @@ namespace iet2
                 }
             }
 
-            ////Use the SparqlQueryParser to give us a SparqlQuery object
-            ////Should get a Graph back from a CONSTRUCT query
-            //SparqlQueryParser sparqlparser = new SparqlQueryParser();
-            //SparqlQuery query = sparqlparser.ParseFromString("SELECT ?actor {}");
-            //results = processor.ProcessQuery(query);
-            //if (results is IGraph)
-            //{
-            //    //Print out the Results
-            //    IGraph r = (IGraph)results;
-            //    NTriplesFormatter formatter = new NTriplesFormatter();
-            //    foreach (Triple t in r.Triples)
-            //    {
-            //        Console.WriteLine(t.ToString(formatter));
-            //    }
-            //    Console.WriteLine("Query took " + query.QueryTime + " milliseconds");
-            //}
+            
         }
 
         static void Main(string[] args)
