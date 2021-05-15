@@ -1332,5 +1332,7 @@ namespace VDS.RDF.Query
         /// </para>
         /// </remarks>
         public bool UsesDefaultDataset => !_defaultGraphs.Any() && _rootGraphPattern.UsesDefaultDataset;
+
+        public string QueryTime { get; set; }
     }
 }
