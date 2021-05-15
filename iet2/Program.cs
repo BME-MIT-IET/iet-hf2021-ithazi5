@@ -53,43 +53,45 @@ namespace iet2
                 Console.WriteLine("RDF Error");
                 Console.WriteLine(rdfEx.Message);
             }
-
-            IBlankNode b = g.GetBlankNode("nodeID");
-            if (b != null)
-            {
-                Console.WriteLine("Blank Node with ID " + b.InternalID + " exists in the Graph");
-            }
-            else
-            {
-                Console.WriteLine("No Blank Node with the given ID existed in the Graph");
-            }
-
             TripleStore store = new TripleStore();
             store.Add(g);
 
-            //Assume that we fill our Store with data from somewhere
 
-            InMemoryDataset ds = new InMemoryDataset(store, true);
+
+            ISparqlDataset ds = new InMemoryDataset(g);
 
             //Get the Query processor
-            ISparqlQueryProcessor processor = new LeviathanQueryProcessor(ds);
+            LeviathanQueryProcessor processor = new LeviathanQueryProcessor(ds);
 
-            //Use the SparqlQueryParser to give us a SparqlQuery object
-            //Should get a Graph back from a CONSTRUCT query
-            SparqlQueryParser sparqlparser = new SparqlQueryParser();
-            SparqlQuery query = sparqlparser.ParseFromString("SELECT ?actor {}");
-            results = processor.ProcessQuery(query);
-            if (results is IGraph)
+            SparqlQuery q = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> SELECT ?actor {?actor a ecrm:E39_Actor}");
+            Object results = processor.ProcessQuery(q);
+            if (results is SparqlResultSet)
             {
                 //Print out the Results
-                IGraph r = (IGraph)results;
-                NTriplesFormatter formatter = new NTriplesFormatter();
-                foreach (Triple t in r.Triples)
+                //Console.WriteLine("working up to this ");
+                SparqlResultSet rset = (SparqlResultSet)results;
+                foreach (SparqlResult result in rset.Results)
                 {
-                    Console.WriteLine(t.ToString(formatter));
+                    Console.WriteLine(result.ToString());
                 }
-                Console.WriteLine("Query took " + query.QueryTime + " milliseconds");
             }
+
+            ////Use the SparqlQueryParser to give us a SparqlQuery object
+            ////Should get a Graph back from a CONSTRUCT query
+            //SparqlQueryParser sparqlparser = new SparqlQueryParser();
+            //SparqlQuery query = sparqlparser.ParseFromString("SELECT ?actor {}");
+            //results = processor.ProcessQuery(query);
+            //if (results is IGraph)
+            //{
+            //    //Print out the Results
+            //    IGraph r = (IGraph)results;
+            //    NTriplesFormatter formatter = new NTriplesFormatter();
+            //    foreach (Triple t in r.Triples)
+            //    {
+            //        Console.WriteLine(t.ToString(formatter));
+            //    }
+            //    Console.WriteLine("Query took " + query.QueryTime + " milliseconds");
+            //}
         }
 
         static void Main(string[] args)
