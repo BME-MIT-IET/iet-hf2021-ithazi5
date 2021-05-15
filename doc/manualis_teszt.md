@@ -29,6 +29,9 @@ A delete után pedig látni, hogy eltűnt a lista elejéről.
 
 ![](after_delete.png)
 
+Összefoglalva itt láthatóak az eredmények az inzert után:
+
+![](manual_test_sum.png)
 
 ### Tanulságok
 
