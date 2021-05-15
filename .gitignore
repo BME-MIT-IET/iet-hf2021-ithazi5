@@ -45,3 +45,6 @@ Testing/unittest/resources/UnitTestConfig.properties
 
 # Sandcastle Help File Builder Output Directory
 Build/shfb/Help/
+.vs/slnx.sqlite
+.vs/slnx.sqlite
+.vs/slnx.sqlite

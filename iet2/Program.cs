@@ -8,7 +8,46 @@ using VDS.RDF.Parsing;
 using VDS.RDF.Query;
 using VDS.RDF.Query.Datasets;
 using VDS.RDF.Writing;
-using VDS.RDF.Writing.Formatting;
+using System.Threading;
+using System.Diagnostics;
+
+namespace iet2
+{
+
+    class Program
+    {
+        
+
+        static PerformanceCounter cpuUsage;
+        static PerformanceCounter ramUsage;
+        static void Main(string[] args)
+        {
+
+            Thread[] threads = new Thread[2];
+            for (int i = 0; i < 2; i++)
+            {
+                threads[i] = new Thread(new ThreadStart(WriteOutDatabase));
+                threads[i].Start();
+            }
+            threads[1] = new Thread(new ThreadStart(WriteoutDiagnostic));
+            threads[1].Start();
+
+        }
+        public static void WriteOutDatabase()
+        {
+            IGraph g = new Graph();
+            IUriNode dotNetRDF = g.CreateUriNode(UriFactory.Create("http://www.dotnetrdf.org"));
+            IUriNode says = g.CreateUriNode(UriFactory.Create("http://example.org/says"));
+            ILiteralNode helloWorld = g.CreateLiteralNode("Hello World");
+            ILiteralNode bonjourMonde = g.CreateLiteralNode("Bonjour tout le Monde", "fr");
+
+            g.Assert(new Triple(dotNetRDF, says, helloWorld));
+            g.Assert(new Triple(dotNetRDF, says, bonjourMonde));
+            foreach (Triple t in g.Triples)
+            {
+                Console.WriteLine(t.ToString());
+            }
+        }
 
 
 
@@ -247,6 +286,17 @@ namespace iet2
             //AQuery();
             Console.ReadKey();
 
+        }
+        public static void WriteoutDiagnostic()
+        {
+            cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            ramUsage = new PerformanceCounter("Memory", "Available MBytes");
+            while (true) {
+                Console.WriteLine("CPU usage: " +cpuUsage.NextValue() + " %");
+                Console.WriteLine("RAM available: " + ramUsage.NextValue() + " MB");
+                Thread.Sleep(1000);
+            }
+            
         }
     }
 }
