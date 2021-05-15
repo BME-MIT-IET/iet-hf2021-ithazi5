@@ -27,6 +27,12 @@ jobs:
       
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
+        
+      - name: Setup NuGet.exe for use with actions
+        uses: NuGet/setup-nuget@v1.0.5
+        
+      - name: Restore nuget
+        run: nuget restore dotnetrdf.sln 
       
       - name: Build the Solution
-        run: msbuild dotnetrdf.sln --restore   
+        run: msbuild dotnetrdf.sln   
