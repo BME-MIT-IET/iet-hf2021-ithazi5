@@ -292,33 +292,40 @@ namespace VDS.RDF.Web
             if (config != null)
             {
                 // Apply Stylesheet to HTML writers
-                if (writer is IHtmlWriter)
+                var IHtmlWriterObjRef = writer as IHtmlWriter;
+                if (IHtmlWriterObjRef != null)
                 {
                     ((IHtmlWriter)writer).Stylesheet = config.Stylesheet;
                 }
 
                 // Apply Compression Options
-                if (writer is ICompressingWriter)
+                var ICompressingWriterObjRef = writer as ICompressingWriter;
+                if (ICompressingWriterObjRef != null)
                 {
                     ((ICompressingWriter)writer).CompressionLevel = config.WriterCompressionLevel;
                 }
-                if (writer is INamespaceWriter)
+                var INamespaceWriterObjRef = writer as INamespaceWriter;
+                if (INamespaceWriterObjRef != null)
                 {
                     ((INamespaceWriter)writer).DefaultNamespaces = config.DefaultNamespaces;
                 }
-                if (writer is IDtdWriter)
+                var IDtdWriterObjRef = writer as IDtdWriter;
+                if (IDtdWriterObjRef != null)
                 {
                     ((IDtdWriter)writer).UseDtd = config.WriterUseDtds;
                 }
-                if (writer is IAttributeWriter)
+                var IAttributeWriterObjRef = writer as IAttributeWriter;
+                if (IAttributeWriterObjRef != null)
                 {
                     ((IAttributeWriter)writer).UseAttributes = config.WriterUseAttributes;
                 }
-                if (writer is IHighSpeedWriter)
+                var IHighSpeedWriterObjRef = writer as IHighSpeedWriter;
+                if (IHighSpeedWriterObjRef != null)
                 {
                     ((IHighSpeedWriter)writer).HighSpeedModePermitted = config.WriterHighSpeedMode;
                 }
-                if (writer is IPrettyPrintingWriter)
+                var IPrettyPrintingWriterObjRef = writer as IHighSpeedWriter;
+                if (IPrettyPrintingWriterObjRef != null)
                 {
                     ((IPrettyPrintingWriter)writer).PrettyPrintMode = config.WriterPrettyPrinting;
                 }

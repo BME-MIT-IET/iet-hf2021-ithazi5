@@ -41,9 +41,9 @@ namespace VDS.RDF.Web
     public class WebContext
         : IHttpContext
     {
-        private HttpContext _context;
-        private IHttpProtocolRequest _request;
-        private IHttpProtocolResponse _response;
+        private readonly HttpContext _context;
+        private readonly IHttpProtocolRequest _request;
+        private readonly IHttpProtocolResponse _response;
 
         /// <summary>
         /// Creates a new Web Context
@@ -96,7 +96,7 @@ namespace VDS.RDF.Web
     class WebRequest
         : IHttpProtocolRequest
     {
-        private HttpContext _context;
+        private readonly HttpContext _context;
 
         public WebRequest(HttpContext context)
         {
@@ -182,7 +182,7 @@ namespace VDS.RDF.Web
     class WebResponse
         : IHttpProtocolResponse
     {
-        private HttpContext _context;
+        private readonly HttpContext _context;
 
         public WebResponse(HttpContext context)
         {
