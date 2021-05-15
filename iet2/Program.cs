@@ -5,15 +5,18 @@ using System.Text;
 using VDS.RDF;
 using VDS.RDF.Parsing;
 using VDS.RDF.Query;
+using VDS.RDF.Query.Datasets;
 using VDS.RDF.Writing;
+using VDS.RDF.Writing.Formatting;
 
 namespace iet2
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        private static object results;
 
+        static void WriteAnRDF() { 
+            
             IGraph g = new Graph();
 
             IUriNode dotNetRDF = g.CreateUriNode(UriFactory.Create("http://www.dotnetrdf.org"));
@@ -24,7 +27,13 @@ namespace iet2
             g.Assert(new Triple(dotNetRDF, says, helloWorld));
             g.Assert(new Triple(dotNetRDF, says, bonjourMonde));
 
-            
+            Notation3Writer n3writer = new Notation3Writer();
+            n3writer.Save(g, "Example.n3");
+
+        }
+
+        static void AQuery() {
+            IGraph g = new Graph();
 
             Notation3Parser n3parser = new Notation3Parser();
             try
@@ -55,17 +64,38 @@ namespace iet2
                 Console.WriteLine("No Blank Node with the given ID existed in the Graph");
             }
 
+            TripleStore store = new TripleStore();
+            store.Add(g);
 
+            //Assume that we fill our Store with data from somewhere
 
-            int i = 0;
-            foreach (Triple t in g.Triples)
+            InMemoryDataset ds = new InMemoryDataset(store, true);
+
+            //Get the Query processor
+            ISparqlQueryProcessor processor = new LeviathanQueryProcessor(ds);
+
+            //Use the SparqlQueryParser to give us a SparqlQuery object
+            //Should get a Graph back from a CONSTRUCT query
+            SparqlQueryParser sparqlparser = new SparqlQueryParser();
+            SparqlQuery query = sparqlparser.ParseFromString("SELECT ?actor {}");
+            results = processor.ProcessQuery(query);
+            if (results is IGraph)
             {
-                Console.WriteLine(t.ToString());
-                i++;
-                if (i == 100)
-                    break;
+                //Print out the Results
+                IGraph r = (IGraph)results;
+                NTriplesFormatter formatter = new NTriplesFormatter();
+                foreach (Triple t in r.Triples)
+                {
+                    Console.WriteLine(t.ToString(formatter));
+                }
+                Console.WriteLine("Query took " + query.QueryTime + " milliseconds");
             }
+        }
 
+        static void Main(string[] args)
+        {
+            //WriteAnRDF();
+            AQuery();
             Console.ReadKey();
         }
     }
