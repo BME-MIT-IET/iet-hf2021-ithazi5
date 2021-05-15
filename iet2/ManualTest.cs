@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using VDS.RDF;
 using VDS.RDF.Parsing;
+using VDS.RDF.Query;
+using VDS.RDF.Query.Datasets;
 
 namespace iet2
 {
@@ -53,18 +55,38 @@ namespace iet2
                 return false;
             }
 
+            ISparqlDataset ds = new InMemoryDataset(g);
+
+            //Get the Query processor
+            LeviathanQueryProcessor processor = new LeviathanQueryProcessor(ds);
 
 
+            SparqlQuery q = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> SELECT ?actor {?actor a ecrm:E39_Actor}");
+            Object results = processor.ProcessQuery(q);
+            if (results is SparqlResultSet)
+            {
+                //Print out the Results
+                //Console.WriteLine("working up to this ");
+                SparqlResultSet rset = (SparqlResultSet)results;
+                foreach (SparqlResult result in rset.Results)
+                {
+                    Console.WriteLine(result.ToString());
+                }
+            }
+            SparqlQuery delete = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> DELETE {?actor a ecrm:E39_Actor FILTER(?actor = <http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d>)}");
+            var deleteResult = processor.ProcessQuery(delete);
+            var result2 = processor.ProcessQuery(q);
+            if (result2 is SparqlResultSet)
+            {
+                //Print out the Results
+                //Console.WriteLine("working up to this ");
+                SparqlResultSet rset = (SparqlResultSet)results;
+                foreach (SparqlResult result in rset.Results)
+                {
+                    Console.WriteLine(result.ToString());
+                }
+            }
 
-
-            int i = 0;
-            //foreach (Triple t in g.Triples)
-            //{
-            //    Console.WriteLine(t.ToString());
-            //    i++;
-            //    if (i == 100)
-            //        break;
-            //}
             return true;
         }
 
