@@ -62,34 +62,60 @@ namespace iet2
             //Get the Query processor
             LeviathanQueryProcessor processor = new LeviathanQueryProcessor(ts);
 
+            try
+            {
+                SparqlQuery q = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> SELECT ?actor {?actor a ecrm:E39_Actor}");
+                Object results = processor.ProcessQuery(q);
+                Console.WriteLine("First 5 actor:");
+                if (results is SparqlResultSet)
+                {
+                    SparqlResultSet rset = (SparqlResultSet)results;
+                    for (int idx = 0; idx < 5; ++idx)
+                    {
+                        Console.WriteLine(rset.Results[idx]);
+                    }
+                }
 
-            SparqlQuery q = new SparqlQueryParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> SELECT ?actor {?actor a ecrm:E39_Actor}");
-            Object results = processor.ProcessQuery(q);
-            if (results is SparqlResultSet)
-            {
-                //Print out the Results
-                //Console.WriteLine("working up to this ");
-                SparqlResultSet rset = (SparqlResultSet)results;
-                foreach (SparqlResult result in rset.Results)
+
+
+                Console.WriteLine("Delete the first actor:");
+                SparqlUpdateCommandSet delete = new SparqlUpdateParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> DELETE {<http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d> a ecrm:E39_Actor}WHERE{}");
+                var updateProcessor = new LeviathanUpdateProcessor(ts);
+                updateProcessor.ProcessCommandSet(delete);
+                var result2 = processor.ProcessQuery(q);
+                if (result2 is SparqlResultSet)
                 {
-                    Console.WriteLine(result.ToString());
+                    SparqlResultSet rset = (SparqlResultSet)result2;
+                    for (int idx = 0; idx < 5; ++idx)
+                    {
+                        Console.WriteLine(rset.Results[idx]);
+                    }
+                }
+
+
+
+
+                SparqlUpdateCommandSet insert = new SparqlUpdateParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> INSERT {<http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d> a ecrm:E39_Actor}WHERE{}");
+                updateProcessor = new LeviathanUpdateProcessor(ts);
+                updateProcessor.ProcessCommandSet(insert);
+                var result3 = processor.ProcessQuery(q);
+                Console.WriteLine("Insert the first actor:");
+                if (result3 is SparqlResultSet)
+                {
+
+                    SparqlResultSet rset = (SparqlResultSet)result3;
+                    for (int idx = 0; idx < 5; ++idx)
+                    {
+                        Console.WriteLine(rset.Results[idx]);
+                    }
                 }
             }
-            Console.WriteLine("Itt vana az elso listazasnak vege.");
-            SparqlUpdateCommandSet delete = new SparqlUpdateParser().ParseFromString("PREFIX ecrm:<http://erlangen-crm.org/current/> DELETE {<http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d> a ecrm:E39_Actor}WHERE{}");
-            var updateProcessor = new LeviathanUpdateProcessor(ts);
-            updateProcessor.ProcessCommandSet(delete);
-            var result2 = processor.ProcessQuery(q);
-            if (result2 is SparqlResultSet)
+            catch(Exception e)
             {
-                //Print out the Results
-                //Console.WriteLine("working up to this ");
-                SparqlResultSet rset = (SparqlResultSet)result2;
-                foreach (SparqlResult result in rset.Results)
-                {
-                    Console.WriteLine(result.ToString());
-                }
+                return false;
             }
+
+            
 
             return true;
         }
