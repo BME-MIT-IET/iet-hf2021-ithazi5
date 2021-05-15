@@ -6,14 +6,33 @@ using VDS.RDF;
 using VDS.RDF.Parsing;
 using VDS.RDF.Query;
 using VDS.RDF.Writing;
+using System.Threading;
+using System.Diagnostics;
 
 namespace iet2
 {
+
     class Program
     {
+        
+
+        static PerformanceCounter cpuUsage;
+        static PerformanceCounter ramUsage;
         static void Main(string[] args)
         {
 
+            Thread[] threads = new Thread[2];
+            for (int i = 0; i < 2; i++)
+            {
+                threads[i] = new Thread(new ThreadStart(WriteOutDatabase));
+                threads[i].Start();
+            }
+            threads[1] = new Thread(new ThreadStart(WriteoutDiagnostic));
+            threads[1].Start();
+
+        }
+        public static void WriteOutDatabase()
+        {
             IGraph g = new Graph();
 
             IUriNode dotNetRDF = g.CreateUriNode(UriFactory.Create("http://www.dotnetrdf.org"));
@@ -24,7 +43,7 @@ namespace iet2
             g.Assert(new Triple(dotNetRDF, says, helloWorld));
             g.Assert(new Triple(dotNetRDF, says, bonjourMonde));
 
-            
+
 
             Notation3Parser n3parser = new Notation3Parser();
             try
@@ -67,6 +86,17 @@ namespace iet2
             }
 
             Console.ReadKey();
+        }
+        public static void WriteoutDiagnostic()
+        {
+            cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            ramUsage = new PerformanceCounter("Memory", "Available MBytes");
+            while (true) {
+                Console.WriteLine("CPU usage: " +cpuUsage.NextValue() + " %");
+                Console.WriteLine("RAM available: " + ramUsage.NextValue() + " MB");
+                Thread.Sleep(1000);
+            }
+            
         }
     }
 }
