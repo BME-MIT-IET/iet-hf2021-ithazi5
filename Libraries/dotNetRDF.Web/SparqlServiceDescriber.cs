@@ -117,8 +117,10 @@ namespace VDS.RDF.Web
         {
             Graph g = new Graph();
             g.NamespaceMap.AddNamespace("sd", UriFactory.Create(SparqlServiceDescriber.ServiceDescriptionNamespace));
+#pragma warning disable S1075 // URIs should not be hardcoded
             g.NamespaceMap.AddNamespace("void", UriFactory.Create("http://rdfs.org/ns/void#"));
             g.NamespaceMap.AddNamespace("scovo", UriFactory.Create("http://purl.org/NET/scovo#"));
+#pragma warning restore S1075 // URIs should not be hardcoded
 
             return g;
         }
