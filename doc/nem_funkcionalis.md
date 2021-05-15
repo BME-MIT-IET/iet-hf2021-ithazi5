@@ -1,0 +1,1 @@
+# Nem-funkcionális jellemzők vizsgálata

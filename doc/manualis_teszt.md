@@ -1,0 +1,1 @@
+# Manuális tesztek megtervezése, végrehajtása és dokumentálása vagy exploratory testing
