@@ -21,6 +21,15 @@ A végrehajtás során a beolvasást követően egy query segítségével kilist
 
 Eredmény képpen elkészült egy manuális teszt, ami a könyvtár egy alapvető funkciójának teszteléséért felelős.
 
+A delete query futtatása előtt lehet látni a http://data.szepmuveszeti.hu/id/collections/museum/E39_Actor/f5f86cb4-b308-34b9-a73b-d40d474d735d URI-val rendelkező Actort-t. Ő az első.
+
+![](before_delete.png)
+
+A delete után pedig látni, hogy eltűnt a lista elejéről.
+
+![](after_delete.png)
+
+
 ### Tanulságok
 
 A manuális teszt jól ellenőrzi, amikor a Unit tesztekben már tesztelt egységeket egyben használjuk.
