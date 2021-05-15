@@ -93,7 +93,7 @@ namespace VDS.RDF.Web
 
                         context.Request.Headers["Accept"] = String.Join(",", defs.Select(d => d.CanonicalMimeType).ToArray());
                         String filePath = Path.GetFileNameWithoutExtension(actualPath);
-                        if (filePath == null || filePath.Equals(String.Empty))
+                        if (filePath == null || string.IsNullOrEmpty(filePath))
                         {
                             if (context.Request.Url.AbsolutePath.EndsWith(ext)) filePath = context.Request.Url.AbsolutePath.Substring(0, context.Request.Url.AbsolutePath.Length - ext.Length);
                         }

@@ -425,10 +425,10 @@ namespace VDS.RDF.Web
             context.Response.Clear();
             context.Response.StatusCode = statusCode;
 
-            if (config != null)
+            if (config != null && !config.ShowErrors)
             {
                 // If not showing errors then we won't return our custom error description
-                if (!config.ShowErrors) return;
+                return;
             }
 
             // Set to Plain Text output and report the error
