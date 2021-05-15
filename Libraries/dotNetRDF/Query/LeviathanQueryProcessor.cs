@@ -55,6 +55,7 @@ namespace VDS.RDF.Query
         private readonly ISparqlDataset _dataset;
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
+
         /// <summary>
         /// Creates a new Leviathan Query Processor.
         /// </summary>
