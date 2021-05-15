@@ -5,7 +5,7 @@
 Különböző mennyiségű triplák létrehozásának lefutási, illetve a szepmuveszeti.n3 fájl beolvasásának ideje lett lemérve.
 
 ## Stresszteszt
-
+A teszt célja, az volt, hogy megállapítsuk mennyire erőforrás igényes az adatbázis betöltése, maximum hány szálon tudjuk a gépen betölteni, hányan tudnak így konkuresnsen hozzáférni. A tesztek során a cpu kihasználtságát és a memória kihasználtságát néztük meg, különböző mennyiségű egyszerre elindított betöltéssel.
 ## Biztonság tesztelése
 
 ## Használhatóság tesztelése
