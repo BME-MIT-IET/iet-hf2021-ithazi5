@@ -16,13 +16,26 @@ namespace iet2
 
     class Program
     {
-        
+
 
         static PerformanceCounter cpuUsage;
         static PerformanceCounter ramUsage;
         static void Main(string[] args)
         {
+            manualTest();
 
+            usabilityTest();
+
+        }
+
+        static void manualTest()
+        {
+            ManualTest manualTest = new ManualTest();
+            manualTest.runAllManualTests();
+        }
+
+        static void usabilityTest()
+        {
             Thread[] threads = new Thread[2];
             for (int i = 0; i < 2; i++)
             {
@@ -31,8 +44,8 @@ namespace iet2
             }
             threads[1] = new Thread(new ThreadStart(WriteoutDiagnostic));
             threads[1].Start();
-
         }
+
         public static void WriteOutDatabase()
         {
             IGraph g = new Graph();
@@ -49,13 +62,6 @@ namespace iet2
             }
         }
 
-
-
-namespace iet2
-{
-    
-    class Program
-    {
         static void WriteAnRDF() { 
             
             IGraph g = new Graph();
@@ -259,34 +265,33 @@ namespace iet2
         
 
 
-        static void Main(string[] args)
-        {
-            ManualTest manualTest = new ManualTest();
-            manualTest.runAllManualTests();
+        //static void Main(string[] args)
+        //{
+            
 
-            //Console.WriteLine("PerformanceTestCreate1Triple");
-            //PerformanceTestWith1Triple();
+        //    //Console.WriteLine("PerformanceTestCreate1Triple");
+        //    //PerformanceTestWith1Triple();
 
-            //Console.WriteLine("PerformanceTestCreate2Triples");
-            //PerformanceTestWith2Triples();
+        //    //Console.WriteLine("PerformanceTestCreate2Triples");
+        //    //PerformanceTestWith2Triples();
 
-            //Console.WriteLine("PerformanceTestCreate10Triples");
-            //PerformanceTestWith10Triples();
+        //    //Console.WriteLine("PerformanceTestCreate10Triples");
+        //    //PerformanceTestWith10Triples();
 
-            //Console.WriteLine("PerformanceTestCreate100Triples");
-            //PerformanceTestWith100Triples();
+        //    //Console.WriteLine("PerformanceTestCreate100Triples");
+        //    //PerformanceTestWith100Triples();
 
-            //Console.WriteLine("PerformanceTestCreate1000Triples");
-            //PerformanceTestWith1000Triples();
+        //    //Console.WriteLine("PerformanceTestCreate1000Triples");
+        //    //PerformanceTestWith1000Triples();
 
-            //Console.WriteLine("PerformanceTestLoadDatabase:");
-            //PerformanceTestWithDatabase();
+        //    //Console.WriteLine("PerformanceTestLoadDatabase:");
+        //    //PerformanceTestWithDatabase();
           
-            //WriteAnRDF();
-            //AQuery();
-            Console.ReadKey();
+        //    //WriteAnRDF();
+        //    //AQuery();
+           
 
-        }
+        //}
         public static void WriteoutDiagnostic()
         {
             cpuUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
